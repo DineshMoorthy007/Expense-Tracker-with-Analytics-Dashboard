@@ -1,5 +1,6 @@
 package com.expensetracker.expense_tracker.controller;
 
+import com.expensetracker.expense_tracker.dto.LoginRequestDTO;
 import com.expensetracker.expense_tracker.dto.RegisterRequestDTO;
 import com.expensetracker.expense_tracker.service.AuthService;
 import lombok.RequiredArgsConstructor;
@@ -15,5 +16,10 @@ public class AuthController {
     @PostMapping("/register")
     public String register(@RequestBody RegisterRequestDTO request) {
         return authService.register(request);
+    }
+
+    @PostMapping("/login")
+    public String login(@RequestBody LoginRequestDTO request) {
+        return authService.login(request);
     }
 }
