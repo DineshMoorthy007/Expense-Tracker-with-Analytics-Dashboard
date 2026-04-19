@@ -1,5 +1,6 @@
 package com.expensetracker.expense_tracker.controller;
 
+import com.expensetracker.expense_tracker.dto.ChangePasswordDTO;
 import com.expensetracker.expense_tracker.dto.LoginRequestDTO;
 import com.expensetracker.expense_tracker.dto.RegisterRequestDTO;
 import com.expensetracker.expense_tracker.service.AuthService;
@@ -21,5 +22,10 @@ public class AuthController {
     @PostMapping("/login")
     public String login(@RequestBody LoginRequestDTO request) {
         return authService.login(request);
+    }
+
+    @PostMapping("/change-password")
+    public String changePassword(@RequestBody ChangePasswordDTO request) {
+        return authService.changePassword(request);
     }
 }

@@ -1,5 +1,6 @@
 package com.expensetracker.expense_tracker.service;
 
+import com.expensetracker.expense_tracker.dto.ChangePasswordDTO;
 import com.expensetracker.expense_tracker.dto.LoginRequestDTO;
 import com.expensetracker.expense_tracker.dto.RegisterRequestDTO;
 import com.expensetracker.expense_tracker.entity.Role;
@@ -8,6 +9,8 @@ import com.expensetracker.expense_tracker.repository.UserRepository;
 import com.expensetracker.expense_tracker.security.JwtUtil;
 
 import lombok.RequiredArgsConstructor;
+
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -59,5 +62,26 @@ public class AuthService {
                 user.getEmail(),
                 user.getRole().name()
         );
+    }
+
+    public String changePassword(ChangePasswordDTO request) {
+
+        String email = (String) SecurityContextHolder.getContext()
+            .getAuthentication().getPrincipal();
+
+        User user = userRepository.findByEmail(email)
+            .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // Verify old password
+        if (!passwordEncoder.matches(request.getOldPassword(), user.getPassword())) {
+            throw new RuntimeException("Old password is incorrect");
+        }
+
+        // Encode new password
+        user.setPassword(passwordEncoder.encode(request.getNewPassword()));
+
+        userRepository.save(user);
+
+        return "Password updated successfully";
     }
 }
