@@ -26,12 +26,10 @@ public class AuthService {
 
     public String register(RegisterRequestDTO request) {
 
-        // Check if email exists
         if (userRepository.findByEmail(request.getEmail()).isPresent()) {
             throw new RuntimeException("Email already registered");
         }
 
-        // Create user
         User user = User.builder()
                 .name(request.getName())
                 .email(request.getEmail())
@@ -47,16 +45,13 @@ public class AuthService {
 
     public String login(LoginRequestDTO request) {
 
-        // Find user
         User user = userRepository.findByEmail(request.getEmail())
             .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // Check password
         if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new RuntimeException("Invalid password");
         }
 
-        // Generate JWT
         return jwtUtil.generateToken(
                 user.getId(),
                 user.getEmail(),
@@ -72,12 +67,10 @@ public class AuthService {
         User user = userRepository.findByEmail(email)
             .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // Verify old password
         if (!passwordEncoder.matches(request.getOldPassword(), user.getPassword())) {
             throw new RuntimeException("Old password is incorrect");
         }
 
-        // Encode new password
         user.setPassword(passwordEncoder.encode(request.getNewPassword()));
 
         userRepository.save(user);

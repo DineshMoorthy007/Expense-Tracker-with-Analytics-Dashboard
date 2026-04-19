@@ -21,7 +21,6 @@ public class JwtUtil {
         return Keys.hmacShaKeyFor(secret.getBytes());
     }
 
-    // Generate Token
     public String generateToken(Long userId, String email, String role) {
         return Jwts.builder()
                 .setSubject(email)
@@ -33,21 +32,18 @@ public class JwtUtil {
                 .compact();
     }
 
-    // Extract Email
     public String extractEmail(String token) {
         return getClaims(token).getSubject();
     }
-    // Extract role
+
     public String extractRole(String token) {
         return getClaims(token).get("role", String.class);
     }
 
-    // Extract UserId
     public Long extractUserId(String token) {
         return getClaims(token).get("userId", Long.class);
     }
 
-    // Validate Token
     public boolean isTokenValid(String token) {
         try {
             getClaims(token);

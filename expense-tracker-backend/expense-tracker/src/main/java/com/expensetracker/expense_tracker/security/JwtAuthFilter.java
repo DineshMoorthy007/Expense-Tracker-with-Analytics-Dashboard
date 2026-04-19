@@ -28,7 +28,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         String authHeader = request.getHeader("Authorization");
 
-        // If no token → continue
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
@@ -36,7 +35,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
 
         String token = authHeader.substring(7);
 
-        // Validate token
         if (jwtUtil.isTokenValid(token)) {
 
             String email = jwtUtil.extractEmail(token);
@@ -49,7 +47,6 @@ public class JwtAuthFilter extends OncePerRequestFilter {
                             List.of(new SimpleGrantedAuthority("ROLE_" + role))
                     );
 
-            // Set authentication in Spring Security context
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
             System.out.println("Authenticated user: " + email + " | Role: " + role);

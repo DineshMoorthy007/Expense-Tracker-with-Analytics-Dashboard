@@ -24,15 +24,12 @@ public class ExpenseService {
 
     public String addExpense(String title, Double amount, Long categoryId) {
 
-        // Get logged-in user email
         String email = (String) SecurityContextHolder.getContext()
                 .getAuthentication().getPrincipal();
 
-        // Fetch user
         User user = userRepository.findByEmail(email)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // Fetch category
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new RuntimeException("Category not found"));
 
@@ -40,7 +37,6 @@ public class ExpenseService {
                 throw new RuntimeException("Invalid category for this user");
         }
 
-        // Create expense
         Expense expense = Expense.builder()
                 .title(title)
                 .amount(amount)
@@ -84,7 +80,6 @@ public class ExpenseService {
             Expense expense = expenseRepository.findById(expenseId)
             .orElseThrow(() -> new RuntimeException("Expense not found"));
 
-        // Ownership check
         if (!expense.getUser().getId().equals(user.getId())) {
                 throw new RuntimeException("Unauthorized access");
         }
@@ -108,7 +103,6 @@ public class ExpenseService {
         Expense expense = expenseRepository.findById(expenseId)
             .orElseThrow(() -> new RuntimeException("Expense not found"));
 
-        // Ownership check
         if (!expense.getUser().getId().equals(user.getId())) {
                 throw new RuntimeException("Unauthorized access");
         }
