@@ -15,15 +15,13 @@ public class AnalyticsController {
 
     private final AnalyticsService analyticsService;
 
-    // GET: /api/analytics/monthly?userId=1
     @GetMapping("/monthly")
-    public List<MonthlyExpenseDTO> getMonthlyExpenses(@RequestParam Long userId) {
-        return analyticsService.getMonthlyExpenses(userId);
+    public List<MonthlyExpenseDTO> getMonthly() {
+        return analyticsService.getMonthlyExpenses();
     }
 
-    // GET: /api/analytics/category?userId=1
     @GetMapping("/category")
-    public List<CategoryExpenseDTO> getCategoryExpenses(@RequestParam Long userId) {
-        return analyticsService.getCategoryExpenses(userId);
+    public List<CategoryExpenseDTO> getCategory() {
+        return analyticsService.getCategoryExpenses();
     }
 }
