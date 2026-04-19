@@ -1,128 +1,200 @@
-# 📊 Expense Tracker with Analytics Dashboard
+# Expense Tracker with Analytics Dashboard
 
-![Java](https://img.shields.io/badge/Java-17-blue?logo=java)
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.0-green?logo=springboot)
-![MySQL](https://img.shields.io/badge/Database-MySQL-orange?logo=mysql)
-![JWT](https://img.shields.io/badge/Auth-JWT-yellow?logo=jsonwebtokens)
-![License](https://img.shields.io/badge/License-MIT-lightgrey)
-![Status](https://img.shields.io/badge/Status-Active-success)
+![Java](https://img.shields.io/badge/Java-17-007396?logo=openjdk&logoColor=white)
+![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-6DB33F?logo=springboot&logoColor=white)
+![Maven](https://img.shields.io/badge/Build-Maven-C71A36?logo=apachemaven&logoColor=white)
+![MySQL](https://img.shields.io/badge/Database-MySQL-4479A1?logo=mysql&logoColor=white)
+![JWT](https://img.shields.io/badge/Auth-JWT-000000?logo=jsonwebtokens&logoColor=white)
+![License](https://img.shields.io/badge/License-MIT-5D6D7E)
+![Status](https://img.shields.io/badge/Status-Active-2EA043)
 
-A **Java Spring Boot backend application** for tracking personal expenses with category management, JWT-based authentication, and analytics dashboard support. This project helps users manage their daily expenses, generate monthly reports, and visualize spending patterns.
+Backend-first expense tracking platform built with Spring Boot. The current repository contains a production-style backend API for authentication, category and expense management, and analytics endpoints, along with a baseline frontend direction for the upcoming dashboard client.
 
----
+## Overview
+This project is organized as a monorepo with a backend module currently implemented:
 
-## 🚀 Features
-- **User Authentication**
-  - Registration & Login with JWT-based authentication
-  - Role-based access (Admin/User)
+- Root workspace: `smart-expense-tracker-with-analytics-dashboard`
+- Backend service: `expense-tracker-backend/expense-tracker`
+- Planned frontend app: baseline architecture documented below
 
-- **Expense Management**
-  - Add, edit, delete expenses
-  - Categorize expenses (Food, Travel, Bills, etc.)
-  - Filter by date range or category
+## Implemented Backend Features
 
-- **Analytics Dashboard**
-  - Monthly expense reports
-  - Category-wise breakdown
-  - API support for chart visualization (Pie/Line charts)
+### Authentication and Security
+- User registration and login
+- JWT-based authentication and request filtering
+- Password change endpoint
+- Spring Security configuration for protected routes
 
-- **Advanced Features (Optional)**
-  - Export reports as PDF/Excel
-  - Recurring expenses (subscriptions)
-  - Cloud deployment (Heroku/AWS/GCP)
+### Expense and Category Management
+- Create, read, update, and delete expenses
+- Create, read, and delete categories
+- User-scoped expense data
 
----
+### Analytics
+- Monthly expense aggregation
+- Category-wise expense breakdown for dashboard visualizations
 
-## 🛠 Tech Stack
-- **Backend:** Java, Spring Boot  
-- **Database:** MySQL (JPA/Hibernate)  
-- **Authentication:** Spring Security + JWT  
-- **Frontend (optional):** React/Angular for dashboard visualization  
-- **Tools:** Maven/Gradle, Postman, GitHub  
+### Backend Architecture
+- Controller layer for REST APIs
+- Service layer for business logic
+- JPA repositories for persistence
+- DTO-based API contracts
+- Centralized exception handling
 
----
+## Tech Stack
 
-## 📂 Project Structure
+### Backend
+- Java 21
+- Spring Boot
+- Spring Security
+- Spring Data JPA (Hibernate)
+- MySQL
+- Maven
 
-ExpenseTracker/
-│── src/main/java/com/expensetracker/
-│   ├── controller/        # REST API controllers
-│   ├── model/             # Entity classes (User, Expense, Category)
-│   ├── repository/        # JPA repositories
-│   ├── service/           # Business logic
-│   └── security/          # JWT & Spring Security configs
-│
-│── src/main/resources/
-│   ├── application.properties  # DB config
-│
-│── pom.xml                # Maven dependencies
+### Frontend (Baseline)
+- React + TypeScript (recommended)
+- Vite (recommended bundler)
+- Charting library for analytics views (for example, Recharts or Chart.js)
+- Axios/Fetch client with JWT interceptor
 
+## Current Repository Structure
 
----
+```text
+smart-expense-tracker-with-analytics-dashboard/
+├─ Readme.md
+└─ expense-tracker-backend/
+   └─ expense-tracker/
+      ├─ pom.xml
+      └─ src/
+         ├─ main/
+         │  ├─ java/com/expensetracker/expense_tracker/
+         │  │  ├─ config/
+         │  │  ├─ controller/
+         │  │  ├─ dto/
+         │  │  ├─ entity/
+         │  │  ├─ exception/
+         │  │  ├─ repository/
+         │  │  ├─ security/
+         │  │  └─ service/
+         │  └─ resources/
+         │     └─ application.properties
+         └─ test/
+```
 
-## 🗄 Database Schema
-### Tables:
-- **User**
-  - `id`, `username`, `email`, `password`, `role`
-- **Category**
-  - `id`, `name`
-- **Expense**
-  - `id`, `amount`, `description`, `date`, `category_id`, `user_id`
+## Database Model
 
----
+### Core Tables
+- User: `id`, `username`, `email`, `password`, `role`
+- Category: `id`, `name`
+- Expense: `id`, `amount`, `description`, `date`, `category_id`, `user_id`
 
-## ⚡ Getting Started
+## API Endpoints (Current)
+
+### Authentication
+- `POST /api/auth/register`
+- `POST /api/auth/login`
+- `POST /api/auth/change-password`
+
+### Categories
+- `POST /api/categories`
+- `GET /api/categories`
+- `DELETE /api/categories/{id}`
+
+### Expenses
+- `POST /api/expenses`
+- `GET /api/expenses`
+- `PUT /api/expenses/{id}`
+- `DELETE /api/expenses/{id}`
+
+### Analytics
+- `GET /api/analytics/monthly`
+- `GET /api/analytics/category`
+
+## Local Setup
 
 ### Prerequisites
 - Java 17+
-- Maven/Gradle
-- MySQL/PostgreSQL
+- MySQL 8+
+- Maven (or use the Maven Wrapper included in the backend module)
 
-### Setup
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/expense-tracker.git
+### Backend Configuration
+Update `expense-tracker-backend/expense-tracker/src/main/resources/application.properties` or provide environment variables:
 
-2. Configure database in application.properties
+- `DB_USERNAME`
+- `DB_PASSWORD`
+- `JWT_SECRET`
 
-- spring.datasource.url=jdbc:mysql://localhost:3306/expense_db
-- spring.datasource.username=root
-- spring.datasource.password=yourpassword
+Default DB URL:
 
-3. Run the application:
-   ```bash
-   mvn spring-boot:run
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/expense_tracker
+```
 
-4.Test APIs using Postman
+### Run the Backend
 
-## 🔑 API Endpoints
+From the repository root:
 
-### Authentication
-- `POST /api/auth/register` → Register a new user  
-- `POST /api/auth/login` → Login and receive JWT token  
+```bash
+cd expense-tracker-backend/expense-tracker
+```
 
-### Expenses
-- `POST /api/expenses` → Add a new expense  
-- `GET /api/expenses` → Retrieve all expenses for the logged-in user  
-- `GET /api/expenses/{id}` → Retrieve expense by ID  
-- `PUT /api/expenses/{id}` → Update an existing expense  
-- `DELETE /api/expenses/{id}` → Delete an expense  
+Using Maven Wrapper on Windows:
 
-### Analytics
-- `GET /api/analytics/monthly` → Get monthly expense report  
-- `GET /api/analytics/category` → Get category-wise expense breakdown  
+```bash
+.\mvnw.cmd spring-boot:run
+```
 
----
+Using Maven (if installed globally):
 
-## 📈 Future Enhancements
-- Integration with payment APIs (Stripe/PayPal) for income vs expense tracking  
-- AI-powered expense predictions and budgeting suggestions  
-- Export reports as PDF/Excel for offline usage  
-- Multi-user collaboration (family/group expense tracking)  
-- Cloud deployment with CI/CD pipelines for scalability  
+```bash
+mvn spring-boot:run
+```
 
----
+## Baseline Frontend Overview
 
-## 📜 License
-This project is licensed under the **MIT License**.  
-You are free to use, modify, and distribute this project with proper attribution.
+The frontend application is not yet committed in this repository. The baseline implementation should cover:
+
+### Product Scope
+- Authentication flow (login/register) with JWT token storage
+- Expense list with filtering by category/date
+- Expense create/edit/delete forms
+- Category management screen
+- Analytics dashboard with monthly trend and category split charts
+
+### Recommended Frontend Structure
+
+```text
+frontend/
+├─ src/
+│  ├─ app/
+│  ├─ pages/
+│  │  ├─ Login
+│  │  ├─ Register
+│  │  ├─ Dashboard
+│  │  ├─ Expenses
+│  │  └─ Categories
+│  ├─ components/
+│  ├─ services/
+│  │  ├─ authApi.ts
+│  │  ├─ expenseApi.ts
+│  │  ├─ categoryApi.ts
+│  │  └─ analyticsApi.ts
+│  ├─ hooks/
+│  ├─ types/
+│  └─ utils/
+└─ package.json
+```
+
+### Frontend Integration Notes
+- Set API base URL to backend host, for example: `http://localhost:8080`
+- Send JWT in `Authorization: Bearer <token>` for secured routes
+- Keep DTO contracts aligned with backend `dto` package
+
+## Roadmap
+- Export reports (PDF/Excel)
+- Recurring expenses and subscription tracking
+- Budget planning and alerting
+- CI/CD and cloud deployment
+
+## License
+This project is licensed under the MIT License.
