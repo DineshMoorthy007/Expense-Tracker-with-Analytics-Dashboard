@@ -1,5 +1,6 @@
 package com.expensetracker.expense_tracker.controller;
 
+import com.expensetracker.expense_tracker.dto.ApiResponse;
 import com.expensetracker.expense_tracker.dto.CategoryExpenseDTO;
 import com.expensetracker.expense_tracker.dto.MonthlyExpenseDTO;
 import com.expensetracker.expense_tracker.service.AnalyticsService;
@@ -16,12 +17,14 @@ public class AnalyticsController {
     private final AnalyticsService analyticsService;
 
     @GetMapping("/monthly")
-    public List<MonthlyExpenseDTO> getMonthly() {
-        return analyticsService.getMonthlyExpenses();
+    public ApiResponse<List<MonthlyExpenseDTO>> getMonthly() {
+        List<MonthlyExpenseDTO> data = analyticsService.getMonthlyExpenses();
+        return new ApiResponse<>("success", "Monthly analytics fetched", data);
     }
 
     @GetMapping("/category")
-    public List<CategoryExpenseDTO> getCategory() {
-        return analyticsService.getCategoryExpenses();
+    public ApiResponse<List<CategoryExpenseDTO>> getCategory() {
+        List<CategoryExpenseDTO> data = analyticsService.getCategoryExpenses();
+        return new ApiResponse<>("success", "Category analytics fetched", data);
     }
 }
