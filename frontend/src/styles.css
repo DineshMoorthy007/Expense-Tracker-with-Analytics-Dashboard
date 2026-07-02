@@ -182,10 +182,13 @@ select {
 }
 
 .content-area {
-  padding: 28px;
+  padding: clamp(18px, 2vw, 32px);
+  display: flex;
+  justify-content: center;
 }
 
 .page-stack {
+  width: min(100%, 1240px);
   display: grid;
   gap: 22px;
 }
@@ -199,7 +202,7 @@ select {
 }
 
 .hero-banner {
-  grid-template-columns: minmax(0, 1.3fr) minmax(240px, 0.7fr);
+  grid-template-columns: minmax(0, 1.12fr) minmax(240px, 0.58fr);
   align-items: center;
   padding: 30px;
   border-radius: var(--radius-xl);
@@ -279,9 +282,11 @@ select {
 
 .auth-page {
   grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: min(100%, 1080px);
   min-height: 100vh;
-  padding: 28px;
+  padding: 28px 0;
   align-items: center;
+  margin-inline: auto;
 }
 
 .hero-panel {
@@ -460,6 +465,11 @@ select:focus {
   grid-template-columns: minmax(0, 1.45fr) minmax(330px, 0.85fr);
 }
 
+.chart-grid-main,
+.expenses-layout {
+  width: 100%;
+}
+
 .chart-panel {
   min-height: 420px;
 }
@@ -581,6 +591,11 @@ select:focus {
     position: relative;
     min-height: auto;
   }
+
+  .auth-page {
+    width: 100%;
+    padding: 16px 0;
+  }
 }
 
 @media (max-width: 760px) {
@@ -603,5 +618,9 @@ select:focus {
   .section-heading {
     grid-template-columns: 1fr;
     align-items: start;
+  }
+
+  .hero-banner {
+    padding: 22px;
   }
 }
