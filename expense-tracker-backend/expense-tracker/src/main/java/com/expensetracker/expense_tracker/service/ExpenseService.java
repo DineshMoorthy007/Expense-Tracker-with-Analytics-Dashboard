@@ -61,6 +61,7 @@ public class ExpenseService {
         return expenseRepository.findByUserId(user.getId())
             .stream()
             .map(expense -> new ExpenseResponseDTO(
+                expense.getId(),
                     expense.getTitle(),
                     expense.getAmount(),
                     expense.getCategory().getName(),

@@ -9,6 +9,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class ExpenseResponseDTO {
 
+    private Long id;
     private String title;
     private Double amount;
     private String category;

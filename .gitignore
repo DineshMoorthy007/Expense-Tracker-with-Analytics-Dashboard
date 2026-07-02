@@ -1,0 +1,26 @@
+# Backend
+expense-tracker-backend/expense-tracker/target/
+expense-tracker-backend/expense-tracker/.mvn/wrapper/maven-wrapper.jar
+expense-tracker-backend/expense-tracker/.idea/
+expense-tracker-backend/expense-tracker/*.iml
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/*.tsbuildinfo
+frontend/vite.config.d.ts
+frontend/vite.config.js
+
+# Environment files
+.env
+.env.*
+frontend/.env
+frontend/.env.*
+expense-tracker-backend/expense-tracker/.env
+expense-tracker-backend/expense-tracker/.env.*
+
+# OS / editor clutter
+.DS_Store
+Thumbs.db
+*.log
