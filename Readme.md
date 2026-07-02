@@ -1,200 +1,266 @@
 # Expense Tracker with Analytics Dashboard
 
-![Java](https://img.shields.io/badge/Java-21-007396?logo=openjdk&logoColor=white)
-![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.x-6DB33F?logo=springboot&logoColor=white)
-![Maven](https://img.shields.io/badge/Build-Maven-C71A36?logo=apachemaven&logoColor=white)
-![MySQL](https://img.shields.io/badge/Database-MySQL-4479A1?logo=mysql&logoColor=white)
-![JWT](https://img.shields.io/badge/Auth-JWT-000000?logo=jsonwebtokens&logoColor=white)
-![License](https://img.shields.io/badge/License-MIT-5D6D7E)
-![Status](https://img.shields.io/badge/Status-Active-2EA043)
+Expense Tracker with Analytics Dashboard is a full-stack personal finance application built with Spring Boot on the backend and React with TypeScript on the frontend. The application supports secure authentication, category and expense management, and analytics-driven visualizations for spending trends.
 
-Backend-first expense tracking platform built with Spring Boot. The current repository contains a production-style backend API for authentication, category and expense management, and analytics endpoints, along with a baseline frontend direction for the upcoming dashboard client.
+## Project Overview
 
-## Overview
-This project is organized as a monorepo with a backend module currently implemented:
+This repository is organized as a monorepo:
 
-- Root workspace: `smart-expense-tracker-with-analytics-dashboard`
 - Backend service: `expense-tracker-backend/expense-tracker`
-- Planned frontend app: baseline architecture documented below
+- Frontend application: `frontend`
+- Local orchestration: `docker-compose.yml`
 
-## Implemented Backend Features
+The backend exposes a REST API secured with JWT. The frontend consumes that API to provide a dashboard experience with charts, summaries, and transaction management.
 
-### Authentication and Security
-- User registration and login
-- JWT-based authentication and request filtering
-- Password change endpoint
-- Spring Security configuration for protected routes
+## Features
 
-### Expense and Category Management
-- Create, read, update, and delete expenses
-- Create, read, and delete categories
-- User-scoped expense data
+### Authentication
+
+- User registration
+- User login
+- Password change
+- JWT-based session handling
+
+### Expense Management
+
+- Create expenses
+- View expenses
+- Update expenses
+- Delete expenses
+- Filter expense lists by category and date
+
+### Category Management
+
+- Create categories
+- View categories
+- Delete categories
 
 ### Analytics
-- Monthly expense aggregation
-- Category-wise expense breakdown for dashboard visualizations
 
-### Backend Architecture
-- Controller layer for REST APIs
-- Service layer for business logic
-- JPA repositories for persistence
-- DTO-based API contracts
-- Centralized exception handling
+- Monthly expense trend visualization
+- Category-wise spending breakdown
+- Summary cards for total spend and average spend
 
-## Tech Stack
+### User Interface
+
+- Responsive dashboard layout
+- Reusable logo and favicon branding
+- Chart-driven analytics views
+- Modern dark visual design with centered content columns
+
+## Technology Stack
 
 ### Backend
+
 - Java 21
-- Spring Boot
+- Spring Boot 3.3.5
 - Spring Security
-- Spring Data JPA (Hibernate)
+- Spring Data JPA
 - MySQL
 - Maven
 
-### Frontend (Baseline)
-- React + TypeScript (recommended)
-- Vite (recommended bundler)
-- Charting library for analytics views (for example, Recharts or Chart.js)
-- Axios/Fetch client with JWT interceptor
+### Frontend
 
-## Current Repository Structure
+- React 18
+- TypeScript
+- Vite
+- Recharts
+- Axios
+
+### DevOps
+
+- Docker
+- Docker Compose
+
+## Repository Structure
 
 ```text
 smart-expense-tracker-with-analytics-dashboard/
 ├─ Readme.md
-└─ expense-tracker-backend/
-   └─ expense-tracker/
-      ├─ pom.xml
-      └─ src/
-         ├─ main/
-         │  ├─ java/com/expensetracker/expense_tracker/
-         │  │  ├─ config/
-         │  │  ├─ controller/
-         │  │  ├─ dto/
-         │  │  ├─ entity/
-         │  │  ├─ exception/
-         │  │  ├─ repository/
-         │  │  ├─ security/
-         │  │  └─ service/
-         │  └─ resources/
-         │     └─ application.properties
-         └─ test/
+├─ .gitignore
+├─ docker-compose.yml
+├─ expense-tracker-backend/
+│  └─ expense-tracker/
+│     ├─ Dockerfile
+│     ├─ pom.xml
+│     └─ src/
+│        ├─ main/
+│        │  ├─ java/com/expensetracker/expense_tracker/
+│        │  │  ├─ config/
+│        │  │  ├─ controller/
+│        │  │  ├─ dto/
+│        │  │  ├─ entity/
+│        │  │  ├─ exception/
+│        │  │  ├─ repository/
+│        │  │  ├─ security/
+│        │  │  └─ service/
+│        │  └─ resources/
+│        │     └─ application.properties
+│        └─ test/
+└─ frontend/
+   ├─ Dockerfile
+   ├─ nginx.conf
+   ├─ package.json
+   ├─ package-lock.json
+   └─ src/
+      ├─ components/
+      ├─ context/
+      ├─ lib/
+      ├─ pages/
+      ├─ services/
+      ├─ types.ts
+      └─ styles.css
 ```
 
-## Database Model
-
-### Core Tables
-- User: `id`, `username`, `email`, `password`, `role`
-- Category: `id`, `name`
-- Expense: `id`, `amount`, `description`, `date`, `category_id`, `user_id`
-
-## API Endpoints (Current)
+## Backend API
 
 ### Authentication
+
 - `POST /api/auth/register`
 - `POST /api/auth/login`
 - `POST /api/auth/change-password`
 
 ### Categories
+
 - `POST /api/categories`
 - `GET /api/categories`
 - `DELETE /api/categories/{id}`
 
 ### Expenses
+
 - `POST /api/expenses`
 - `GET /api/expenses`
 - `PUT /api/expenses/{id}`
 - `DELETE /api/expenses/{id}`
 
 ### Analytics
+
 - `GET /api/analytics/monthly`
 - `GET /api/analytics/category`
 
-## Local Setup
+## Data Model
+
+### User
+
+- `id`
+- `name`
+- `email`
+- `password`
+- `role`
+
+### Category
+
+- `id`
+- `name`
+- `user_id`
+
+### Expense
+
+- `id`
+- `title`
+- `amount`
+- `date`
+- `category_id`
+- `user_id`
+
+## Local Development
 
 ### Prerequisites
-- Java 17+
+
+- Java 21
+- Node.js 20 or later
 - MySQL 8+
-- Maven (or use the Maven Wrapper included in the backend module)
+- Maven, or the Maven Wrapper provided in the backend module
 
 ### Backend Configuration
-Update `expense-tracker-backend/expense-tracker/src/main/resources/application.properties` or provide environment variables:
+
+The backend reads the following environment variables:
 
 - `DB_USERNAME`
 - `DB_PASSWORD`
 - `JWT_SECRET`
 
-Default DB URL:
+The default database URL is:
 
 ```properties
-spring.datasource.url=jdbc:mysql://localhost:3306/expense_tracker
+spring.datasource.url=jdbc:mysql://localhost:3306/expense_tracker?createDatabaseIfNotExist=true
 ```
 
-### Run the Backend
-
-From the repository root:
+### Run the Backend Locally
 
 ```bash
 cd expense-tracker-backend/expense-tracker
 ```
 
-Using Maven Wrapper on Windows:
+On Windows:
 
 ```bash
 .\mvnw.cmd spring-boot:run
 ```
 
-Using Maven (if installed globally):
+On Unix-like systems:
 
 ```bash
-mvn spring-boot:run
+./mvnw spring-boot:run
 ```
 
-## Baseline Frontend Overview
+### Run the Frontend Locally
 
-The frontend application is not yet committed in this repository. The baseline implementation should cover:
-
-### Product Scope
-- Authentication flow (login/register) with JWT token storage
-- Expense list with filtering by category/date
-- Expense create/edit/delete forms
-- Category management screen
-- Analytics dashboard with monthly trend and category split charts
-
-### Recommended Frontend Structure
-
-```text
-frontend/
-├─ src/
-│  ├─ app/
-│  ├─ pages/
-│  │  ├─ Login
-│  │  ├─ Register
-│  │  ├─ Dashboard
-│  │  ├─ Expenses
-│  │  └─ Categories
-│  ├─ components/
-│  ├─ services/
-│  │  ├─ authApi.ts
-│  │  ├─ expenseApi.ts
-│  │  ├─ categoryApi.ts
-│  │  └─ analyticsApi.ts
-│  ├─ hooks/
-│  ├─ types/
-│  └─ utils/
-└─ package.json
+```bash
+cd frontend
+npm install
+npm run dev
 ```
 
-### Frontend Integration Notes
-- Set API base URL to backend host, for example: `http://localhost:8080`
-- Send JWT in `Authorization: Bearer <token>` for secured routes
-- Keep DTO contracts aligned with backend `dto` package
+The frontend expects the API to be available at `http://localhost:8080` unless `VITE_API_BASE_URL` is set.
 
-## Roadmap
-- Export reports (PDF/Excel)
-- Recurring expenses and subscription tracking
-- Budget planning and alerting
-- CI/CD and cloud deployment
+## Docker Setup
+
+This repository includes Docker configuration for the backend, frontend, and MySQL database.
+
+### Start the Full Stack
+
+```bash
+docker compose up --build
+```
+
+### Service Ports
+
+- Frontend: `http://localhost:5173`
+- Backend API: `http://localhost:8080`
+- MySQL: `localhost:3306`
+
+### Notes
+
+- The frontend image serves the built Vite application through Nginx.
+- The backend image is built from the Maven project and runs on a slim Java 21 runtime.
+- Docker Compose initializes a dedicated MySQL container and persists data in a named volume.
+
+## Frontend Behavior
+
+- JWT tokens are stored in browser local storage.
+- The user display name is read from the JWT payload and shown in the dashboard shell.
+- The dashboard uses chart components for monthly and category analytics.
+- The layout is centered and constrained to avoid an overly stretched horizontal presentation on large screens.
+
+## Environment Variables
+
+### Backend
+
+- `DB_USERNAME`
+- `DB_PASSWORD`
+- `JWT_SECRET`
+
+### Frontend
+
+- `VITE_API_BASE_URL`
+
+## Development Notes
+
+- Keep DTO contracts in sync between the backend and frontend.
+- Use request parameters when calling the expense and category mutation endpoints, because the backend currently expects query parameters for those operations.
+- The backend is configured to allow requests from the local frontend development ports.
 
 ## License
+
 This project is licensed under the MIT License.
